@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using r2hReportCardService.Models;
 
 namespace r2hReportCardService.Controllers
 {
@@ -25,8 +26,16 @@ namespace r2hReportCardService.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        [Route("/MentorReportCard")]
+        public IEnumerable<string> CreateMentorReportCard([FromBody] MentorReportCard reportCardBody)
         {
+            MentorReportCard requestBody = reportCardBody;
+            
+            return new string[] {
+                requestBody.mentorReportCardId.ToString(),
+                requestBody.studentId.ToString(),
+                requestBody.mentorId.ToString(),
+                requestBody.mentorType };
         }
 
         // PUT api/values/5
