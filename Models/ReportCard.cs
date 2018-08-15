@@ -1,7 +1,10 @@
 namespace r2hReportCardService.Models
 {
-  class ReportCard
+  public class MentorReportCard
   {
-    int reportCardId { get; set; }
+    public int mentorReportCardId { get; set; }
+    public int studentId { get; set; }
+    public int mentorId { get; set; }
+    public string mentorType { get; set; }
   }
 }
