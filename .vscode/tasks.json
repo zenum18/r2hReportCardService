@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/r2hReportCardService.csproj"
+                "${workspaceFolder}/R2hReportCardService.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
