@@ -1,15 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Dapper;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using R2hReportCardService.Models;
+using R2hReportCardService.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace R2hReportCardService.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class R2hReportCardController : Controller
     {
+        private readonly R2hReportCardContext _context;
+        private readonly IConfiguration _config;
+        // constructor 
+        public R2hReportCardController(R2hReportCardContext c, IConfiguration f)
+        {
+            _context = c;
+            _config = f;
+        }
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
@@ -27,18 +38,23 @@ namespace R2hReportCardService.Controllers
         // POST api/values
         [HttpPost]
         [Route("/MentorReportCard")]
-        public IEnumerable<string> CreateMentorReportCard([FromBody] MentorReportCard reportCardBody)
+        public bool CreateMentorReportCard([FromBody] MentorReportCard reportCardBody)
         {
+            
             MentorReportCard requestBody = reportCardBody;
+            string dbConnString = _config["R2HGB_DB_CONN"];
+            ReportCardService service = new ReportCardService();
+            try
+            {
+                Console.WriteLine("Callling Service");
+                service.createMentorReportCard(requestBody, dbConnString);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Failed to save to db: {e}");
+            }
 
-            return new string[] {
-                requestBody.mentorReportCardId.ToString(),
-                requestBody.studentId.ToString(),
-                requestBody.mentorId.ToString(),
-                requestBody.mentorType.ToString(),
-                requestBody.submittedAt.ToString(),
-                requestBody.mentorType.ToString()
-            };
+            return true;
         }
 
         // PUT api/values/5
