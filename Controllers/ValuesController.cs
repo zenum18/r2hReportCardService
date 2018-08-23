@@ -35,6 +35,30 @@ namespace R2hReportCardService.Controllers
             return "value";
         }
 
+        // // POST api/values
+        // [HttpPost]
+        // [Route("/MentorReportCard")]
+        // public bool CreateMentorReportCard([FromBody] MentorReportCard reportCardBody)
+        // {
+            
+        //     MentorReportCard requestBody = reportCardBody;
+        //     Console.WriteLine("REPORT CARD BODY");
+        //     Console.WriteLine(reportCardBody);
+        //     Console.WriteLine("END REPORT CARD BODY");
+        //     ReportCardService service = new ReportCardService();
+        //     try
+        //     {
+        //         Console.WriteLine("Callling Service");
+        //         service.createMentorReportCard(requestBody);
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         Console.WriteLine($"Failed to save to db: {e}");
+        //     }
+
+        //     return true;
+        // }
+
         // POST api/values
         [HttpPost]
         [Route("/MentorReportCard")]
@@ -42,12 +66,14 @@ namespace R2hReportCardService.Controllers
         {
             
             MentorReportCard requestBody = reportCardBody;
-            string dbConnString = _config["R2HGB_DB_CONN"];
+            Console.WriteLine("REPORT CARD BODY");
+            Console.WriteLine(reportCardBody);
+            Console.WriteLine("END REPORT CARD BODY");
             ReportCardService service = new ReportCardService();
             try
             {
                 Console.WriteLine("Callling Service");
-                service.createMentorReportCard(requestBody, dbConnString);
+                service.createMentorReportCard(requestBody);
             }
             catch (Exception e)
             {

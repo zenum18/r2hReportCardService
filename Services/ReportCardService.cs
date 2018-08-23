@@ -7,16 +7,8 @@ namespace R2hReportCardService.Services
 {
   public class ReportCardService
   {
-    public void createMentorReportCard(MentorReportCard requestBody, string dbConnStr)
+    public void createMentorReportCard(MentorReportCard requestBody)
     {
-      MySqlConnectionStringBuilder conn_string = new MySqlConnectionStringBuilder();
-      conn_string.Server = "server";
-      conn_string.Port = 3306;
-      conn_string.UserID = "urs";
-      conn_string.Password = "pass";
-      conn_string.Database = "db";
-
-      MySqlConnection MyCon = new MySqlConnection(conn_string.ToString());
       MentorReportCard body = new MentorReportCard();
       body.mentorType = (requestBody.mentorType == null) ? 8 : 0;
       body.mentorReportCardId = (requestBody.mentorReportCardId == null) ? 9 : 0;
@@ -27,7 +19,7 @@ namespace R2hReportCardService.Services
         try
         {
           Console.WriteLine("attempting sql execute");
-          dbConn.Execute(sql, new { mentorReportCardIDId = body.mentorReportCardId, mentorType = body.mentorType});
+          dbConn.Execute(sql, new { mentorReportCardID = body.mentorReportCardId, mentorType = body.mentorType});
         }
         catch (Exception e) 
         {
